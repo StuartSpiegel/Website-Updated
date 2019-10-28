@@ -1,6 +1,8 @@
 <?php
-require_once(db.php);
+ob_start();
 session_start();
+require_once ('db.php');
+require_once ('home.php');
 $_SESSION['POSTED'] = false;
 if(isset($_POST['submit']))
 {
@@ -36,7 +38,7 @@ if(isset($_POST['submit']))
     border: 1px #d3d3d3 solid;
     height: 350px;
     width: 350px;
-    overflow: scroll; 
+    overflow: scroll;
     }
     </style>
 </head>
@@ -44,12 +46,12 @@ if(isset($_POST['submit']))
 <body>
 <!-- Begin div containing message threads -->
 <div id="thread">
-    <?php 
+    <?php
         $select = "SELECT * FROM comments";
-        $query = mysqli_query($connect, $select);
-        while($row = mysqli_fetch_array($query, MYSQLI_ASSOC))
+        $q = mysqli_query($connect, $select);
+        while($row = mysqli_fetch_array($q, MYSQLI_ASSOC))
         {
-        echo $row ['name']. ": ". $row['message']."<br>";
+        echo $row ['name']. ": ". $row['comment']."<br>";
         }
     ?>
 <form method="POST" action="index.php">
@@ -60,8 +62,3 @@ if(isset($_POST['submit']))
 </form>
 </body>
 </html>
-
-
-
-
-
